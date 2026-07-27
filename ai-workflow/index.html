@@ -3,191 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>设计师AI提效工作流</title>
+    <title>设计师AI提效工作流 - AI手搓工具分享</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            min-height: 100vh;
-            color: white;
+            font-family: -apple-system, "PingFang SC", "SF Pro Display", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+            background: #1a1a2e;
+            color: #fff;
+            overflow: hidden;
         }
-        .header {
+
+        /* 演示容器 */
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 幻灯片 */
+        .slide {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            background: #1e1e3f;
+            overflow: hidden;
+            transform-origin: center center;
+            transition: opacity 0.5s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .slide-content {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* 形状 */
+        .shape {
+            position: absolute;
+            overflow: hidden;
+        }
+
+        .shape img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* 文本样式 */
+        .text-shape {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-shape .para {
+            margin: 0;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .text-shape .align-center {
             text-align: center;
-            padding: 40px 20px 30px;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .header h1 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+
+        .text-shape .align-right {
+            text-align: right;
         }
-        .header .subtitle { font-size: 16px; opacity: 0.7; margin-bottom: 5px; }
-        .header .meta { font-size: 14px; opacity: 0.5; }
-        .controls { display: flex; justify-content: center; gap: 15px; padding: 20px; flex-wrap: wrap; }
-        .btn {
-            padding: 12px 28px; border: none; border-radius: 25px;
-            font-size: 15px; font-weight: 600; cursor: pointer;
-            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6); }
-        .btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
-        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
-        .slide-counter { text-align: center; padding: 10px; font-size: 18px; font-weight: 600; opacity: 0.9; }
-        .slides-container { max-width: 1100px; margin: 0 auto; padding: 20px; }
-        .slide-wrapper {
-            background: white; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3); margin-bottom: 30px;
-            transition: transform 0.3s ease;
-        }
-        .slide-wrapper:hover { transform: scale(1.01); }
+
+        /* 页码 */
         .slide-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; padding: 10px 20px; font-size: 14px; font-weight: 600;
-            display: flex; align-items: center; gap: 8px;
+            position: absolute;
+            bottom: 16px;
+            right: 24px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            background: rgba(93,92,222,0.9);
+            padding: 6px 16px;
+            border-radius: 20px;
+            z-index: 10;
         }
-        .slide-number .badge { background: rgba(255,255,255,0.25); padding: 3px 10px; border-radius: 12px; font-size: 13px; cursor: pointer; }
-        .slide-wrapper img { width: 100%; height: auto; display: block; }
-        .footer { text-align: center; padding: 40px 20px; opacity: 0.5; font-size: 14px; }
-        .fullscreen-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 1000; display: none;
-            align-items: center; justify-content: center; cursor: pointer;
-        }
-        .fullscreen-overlay.active { display: flex; }
-        .fullscreen-overlay img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
-        .fullscreen-nav {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            display: none; gap: 20px; z-index: 1001;
-        }
-        .fullscreen-nav.active { display: flex; }
-        .fullscreen-nav button {
-            background: rgba(255,255,255,0.2); color: white; border: none;
-            padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer;
+
+        /* 控制栏 */
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 16px;
+            z-index: 100;
+            background: rgba(30,30,63,0.95);
+            padding: 12px 24px;
+            border-radius: 50px;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
-        @media (max-width: 768px) {
-            .header h1 { font-size: 24px; }
-            .btn { padding: 10px 20px; font-size: 14px; }
-            .slides-container { padding: 10px; }
+
+        .controls button {
+            background: linear-gradient(135deg, #5D5CDE, #7C3AED);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .controls button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(93,92,222,0.4);
+        }
+
+        .controls button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 全屏模式 */
+        .fullscreen .slide {
+            width: 100vw;
+            height: 100vh;
+            max-width: none;
+            max-height: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .fullscreen .controls {
+            bottom: 20px;
+        }
+
+        /* 缩放适配 */
+        @media (max-width: 1366px) {
+            .slide {
+                transform: scale(0.85);
+            }
+        }
+
+        @media (max-width: 1100px) {
+            .slide {
+                transform: scale(0.7);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .slide {
+                transform: scale(0.5);
+            }
+            .controls {
+                padding: 8px 16px;
+            }
+            .controls button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* 进度指示器 */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #5D5CDE, #00D4AA);
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        /* 快捷键提示 */
+        .shortcuts-hint {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>设计师AI提效工作流</h1>
-        <p class="subtitle">设计师 AI 提效工作流分享</p>
-        <p class="meta">在线演示 · 共 5 页</p>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="shortcuts-hint">⌨️ ← → 翻页 | F 全屏 | ESC 退出</div>
+
+    <div class="presentation" id="presentation">
+        
+        <div class="slide" data-slide="1" style="background-color:#0D1B2A;">
+            <div class="slide-content">
+                
+                <div class="shape text-shape" style="left:24.85%;top:31.31%;width:70.75%;height:16.89%">
+                    <p class="para"><span style="color:#92D050;font-size:72.0pt;font-weight:bold">工具即生产力</span></p>
+                </div>
+                <div class="shape text-shape" style="left:24.85%;top:47.50%;width:86.48%;height:16.89%">
+                    <p class="para"><span style="color:#FFFFFF;font-size:61.33pt;font-weight:bold">设计师</span><span style="color:#FFFFFF;font-size:61.33pt;font-weight:bold">AI</span><span style="color:#FFFFFF;font-size:61.33pt;font-weight:bold">手搓工具分享</span></p>
+                </div>
+                <div class="shape text-shape" style="left:112.98%;top:87.76%;width:15.66%;height:6.00%">
+                    <p class="para"><span style="color:#FFFFFF;font-size:20.0pt">yaminchen</span></p>
+                </div>
+                <div class="shape text-shape" style="left:10.67%;top:115.56%;width:66.67%;height:6.22%">
+                    <p class="para"><span style="color:#667788;font-size:14.66pt">供应商 CP 交流会    2026.07</span></p>
+                </div>
+            </div>
+            <div class="slide-number">第 1 页 / 共 5 页</div>
+        </div>
+        <div class="slide" data-slide="2" style="background-color:#0D1B2A;">
+            <div class="slide-content">
+                
+                <div class="shape text-shape" style="left:16.25%;top:34.04%;width:68.49%;height:26.04%">
+                    <p class="para"><span style="color:#92D050;font-size:48.0pt;font-weight:bold">解放重复劳动的双手，</span></p><p class="para"><span style="color:#92D050;font-size:48.0pt;font-weight:bold">把精力留给创意。</span></p>
+                </div>
+                <div class="shape text-shape" style="left:16.25%;top:15.15%;width:100.83%;height:16.89%">
+                    <p class="para"><span style="color:#FFFFFF;font-size:40.0pt;font-weight:bold">为什么创作者（设计师）</span><span style="color:#FFFFFF;font-size:40.0pt;font-weight:bold">要自己写工具？</span></p>
+                </div>
+                <div class="shape text-shape" style="left:10.67%;top:115.56%;width:66.67%;height:6.22%">
+                    <p class="para"><span style="color:#667788;font-size:14.66pt">供应商 CP 交流会    2026.07</span></p>
+                </div>
+                <div class="shape text-shape" style="left:41.20%;top:70.13%;width:41.17%;height:13.17%">
+                    <p class="para"><span style="color:#F2F2F2;font-size:36.0pt;font-weight:bold">你最懂你的工作流</span></p>
+                </div>
+                <div class="shape text-shape" style="left:16.25%;top:70.13%;width:23.09%;height:13.17%">
+                    <p class="para"><span style="color:#A5A5A5;font-size:36.0pt;font-weight:bold">有嘴就行</span></p>
+                </div>
+                <div class="shape text-shape" style="left:60.07%;top:60.08%;width:23.09%;height:13.17%">
+                    <p class="para"><span style="color:#A5A5A5;font-size:36.0pt;font-weight:bold">早点下班</span></p>
+                </div>
+                <div class="shape text-shape" style="left:16.25%;top:60.08%;width:46.81%;height:13.17%">
+                    <p class="para"><span style="color:#D8D8D8;font-size:36.0pt;font-weight:bold">工具化稳定且规范</span></p>
+                </div>
+            </div>
+            <div class="slide-number">第 2 页 / 共 5 页</div>
+        </div>
+        <div class="slide" data-slide="3" style="background-color:#0D1B2A;">
+            <div class="slide-content">
+                
+                <div class="shape text-shape" style="left:10.67%;top:3.57%;width:75.13%;height:13.03%">
+                    <p class="para"><span style="color:#92D050;font-size:28.0pt;font-weight:bold">灵感收集器</span><span style="color:#92D050;font-size:28.0pt;font-weight:bold">     </span></p>
+                </div>
+                <div class="shape text-shape" style="left:1.40%;top:50.00%;width:68.01%;height:8.19%">
+                    <p class="para"><span style="color:#A5A5A5;font-size:24.0pt;font-weight:bold">需求：</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">收集大量同类参考图</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold"> </span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">或</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold"> </span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">模型训练图</span></p>
+                </div>
+                <div class="shape text-shape" style="left:10.67%;top:115.56%;width:66.67%;height:6.22%">
+                    <p class="para"><span style="color:#667788;font-size:14.66pt">供应商 CP 交流会    2026.07</span></p>
+                </div>
+                <div class="shape" style="left:3.46%;top:5.88%;width:6.30%;height:8.40%">
+                    <img src="assets/img_3_.png" alt="" draggable="false">
+                </div>
+                <div class="shape text-shape" style="left:1.40%;top:61.98%;width:87.08%;height:8.19%">
+                    <p class="para"><span style="color:#A5A5A5;font-size:28.0pt;font-weight:bold">低情商：</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">手动另存为储存</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold"> </span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">❌</span></p>
+                </div>
+                <div class="shape text-shape" style="left:1.40%;top:65.89%;width:102.23%;height:30.43%">
+                    <p class="para"><span style="color:#FFFFFF;font-size:40.0pt;font-weight:bold">高情商：</span><span style="color:#FFFFFF;font-size:40.0pt;font-weight:bold">AI</span><span style="color:#FFFFFF;font-size:40.0pt;font-weight:bold">写个工具自动批量下载</span><span style="color:#FFFFFF;font-size:40.0pt;font-weight:bold"> </span><span style="color:#FFFFFF;font-size:40.0pt;font-weight:bold">✅</span></p>
+                </div>
+                <div class="shape" style="left:75.51%;top:6.04%;width:56.24%;height:68.04%">
+                    <img src="assets/img_3_.png" alt="" draggable="false">
+                </div>
+            </div>
+            <div class="slide-number">第 3 页 / 共 5 页</div>
+        </div>
+        <div class="slide" data-slide="4" style="background-color:#0D1B2A;">
+            <div class="slide-content">
+                
+                <div class="shape text-shape" style="left:11.04%;top:3.60%;width:68.01%;height:13.03%">
+                    <p class="para"><span style="color:#92D050;font-size:28.0pt;font-weight:bold">素材输出自动化</span></p>
+                </div>
+                <div class="shape text-shape" style="left:3.59%;top:37.50%;width:51.71%;height:6.22%">
+                    <p class="para"><span style="color:#A5A5A5;font-size:24.0pt;font-weight:bold">需求：</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">做个性化好多尺寸要输出怎么办？</span></p>
+                </div>
+                <div class="shape text-shape" style="left:10.67%;top:115.56%;width:66.67%;height:6.22%">
+                    <p class="para"><span style="color:#667788;font-size:14.66pt">供应商 CP 交流会    2026.07</span></p>
+                </div>
+                <div class="shape text-shape" style="left:1.63%;top:79.59%;width:87.08%;height:8.19%">
+                    <p class="para"><span style="color:#A5A5A5;font-size:24.0pt;font-weight:bold">低情商：</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">手动一个一个输</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold"> </span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">❌</span></p>
+                </div>
+                <div class="shape text-shape" style="left:1.63%;top:87.78%;width:98.68%;height:8.19%">
+                    <p class="para"><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">高情商：</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">AI</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">写个工具全流程自动</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">切好</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold"> </span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">✅</span></p>
+                </div>
+                <div class="shape" style="left:55.30%;top:7.44%;width:74.85%;height:78.42%">
+                    <img src="assets/img_4_.png" alt="" draggable="false">
+                </div>
+            </div>
+            <div class="slide-number">第 4 页 / 共 5 页</div>
+        </div>
+        <div class="slide" data-slide="5" style="background-color:#0D1B2A;">
+            <div class="slide-content">
+                
+                <div class="shape text-shape" style="left:12.08%;top:3.60%;width:68.01%;height:13.03%">
+                    <p class="para"><span style="color:#92D050;font-size:28.0pt;font-weight:bold">APNG格式</span><span style="color:#92D050;font-size:28.0pt;font-weight:bold">工具</span></p>
+                </div>
+                <div class="shape text-shape" style="left:0.00%;top:34.12%;width:68.01%;height:8.19%">
+                    <p class="para"><span style="color:#A5A5A5;font-size:24.0pt;font-weight:bold">需求：</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">批量</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">APNG</span><span style="color:#FFFFFF;font-size:24.0pt;font-weight:bold">改点数值和尺寸？</span></p>
+                </div>
+                <div class="shape text-shape" style="left:10.67%;top:115.56%;width:66.67%;height:6.22%">
+                    <p class="para"><span style="color:#667788;font-size:14.66pt">供应商 CP 交流会    2026.07</span></p>
+                </div>
+                <div class="shape text-shape" style="left:0.00%;top:44.22%;width:87.08%;height:8.19%">
+                    <p class="para"><span style="color:#A5A5A5;font-size:28.0pt;font-weight:bold">低情商：</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">手动</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">AE</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">重新手动输出</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold"> </span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">❌</span></p>
+                </div>
+                <div class="shape text-shape" style="left:0.00%;top:52.42%;width:98.68%;height:8.19%">
+                    <p class="para"><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">高情商：</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">AI</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">写个工具自动改</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">好</span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold"> </span><span style="color:#FFFFFF;font-size:28.0pt;font-weight:bold">✅</span></p>
+                </div>
+                <div class="shape" style="left:59.81%;top:3.60%;width:72.09%;height:88.28%">
+                    <img src="assets/img_5_.png" alt="" draggable="false">
+                </div>
+            </div>
+            <div class="slide-number">第 5 页 / 共 5 页</div>
+        </div>
     </div>
 
     <div class="controls">
-        <button class="btn btn-primary" onclick="startPresentation()">▶ 开始演示（全屏）</button>
-        <button class="btn btn-secondary" onclick="scrollToTop()">⬆ 回到顶部</button>
+        <button onclick="prevSlide()" id="prevBtn">◀ 上一页</button>
+        <button onclick="toggleFullscreen()">🖥️ 开始演示</button>
+        <button onclick="nextSlide()" id="nextBtn">下一页 ▶</button>
     </div>
-
-    <div class="slide-counter">📊 共 5 页幻灯片</div>
-
-    <div class="slides-container" id="slidesContainer">
-
-        <div class="slide-wrapper" id="slide-1">
-            <div class="slide-number">
-                📄 第 1 页 / 共 5 页
-                <span class="badge" onclick="openFullscreen(1)">🔍 点击全屏查看</span>
-            </div>
-            <img src="slides/slide-01.jpg" alt="Slide 1" loading="lazy">
-        </div>
-
-        <div class="slide-wrapper" id="slide-2">
-            <div class="slide-number">
-                📄 第 2 页 / 共 5 页
-                <span class="badge" onclick="openFullscreen(2)">🔍 点击全屏查看</span>
-            </div>
-            <img src="slides/slide-02.jpg" alt="Slide 2" loading="lazy">
-        </div>
-
-        <div class="slide-wrapper" id="slide-3">
-            <div class="slide-number">
-                📄 第 3 页 / 共 5 页
-                <span class="badge" onclick="openFullscreen(3)">🔍 点击全屏查看</span>
-            </div>
-            <img src="slides/slide-03.jpg" alt="Slide 3" loading="lazy">
-        </div>
-
-        <div class="slide-wrapper" id="slide-4">
-            <div class="slide-number">
-                📄 第 4 页 / 共 5 页
-                <span class="badge" onclick="openFullscreen(4)">🔍 点击全屏查看</span>
-            </div>
-            <img src="slides/slide-04.jpg" alt="Slide 4" loading="lazy">
-        </div>
-
-        <div class="slide-wrapper" id="slide-5">
-            <div class="slide-number">
-                📄 第 5 页 / 共 5 页
-                <span class="badge" onclick="openFullscreen(5)">🔍 点击全屏查看</span>
-            </div>
-            <img src="slides/slide-05.jpg" alt="Slide 5" loading="lazy">
-        </div>
-
-    </div>
-
-    <div class="footer"><p>Powered by GitHub Pages · 响应式设计 · 支持全屏浏览</p></div>
-
-    <div class="fullscreen-overlay" id="fullscreenOverlay" onclick="closeFullscreen()">
-        <img id="fullscreenImage" src="" alt="Fullscreen view">
-    </div>
-
-    <nav class="fullscreen-nav" id="fullscreenNav">
-        <button onclick="prevSlide()">◀ 上一页</button>
-        <button onclick="closeFullscreen()">✕ 关闭</button>
-        <button onclick="nextSlide()">下一页 ▶</button>
-    </nav>
 
     <script>
         let currentSlide = 0;
-        const totalSlides = 5;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
 
-        function openFullscreen(num) {
-            currentSlide = num;
-            var slideNum = String(num).padStart(2, '0');
-            document.getElementById('fullscreenImage').src = 'slides/slide-' + slideNum + '.jpg';
-            document.getElementById('fullscreenOverlay').classList.add('active');
-            document.getElementById('fullscreenNav').classList.add('active');
+        function showSlide(n) {
+            currentSlide = (n + totalSlides) % totalSlides;
+
+            slides.forEach((slide, i) => {
+                slide.style.display = i === currentSlide ? 'block' : 'none';
+            });
+
+            // 更新进度条
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+
+            // 更新按钮状态
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
         }
 
-        function closeFullscreen() {
-            document.getElementById('fullscreenOverlay').classList.remove('active');
-            document.getElementById('fullscreenNav').classList.remove('active');
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                document.body.classList.add('fullscreen');
+            } else {
+                document.exitFullscreen();
+                document.body.classList.remove('fullscreen');
+            }
         }
 
-        function nextSlide() {
-            if (currentSlide < totalSlides) { currentSlide++; openFullscreen(currentSlide); }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 1) { currentSlide--; openFullscreen(currentSlide); }
-        }
-
-        document.addEventListener('keydown', function(e) {
-            var overlay = document.getElementById('fullscreenOverlay');
-            if (overlay.classList.contains('active')) {
-                if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-                if (e.key === 'ArrowLeft') prevSlide();
-                if (e.key === 'Escape') closeFullscreen();
+        // 键盘导航
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                case 'Enter':
+                    e.preventDefault();
+                    nextSlide();
+                    break;
+                case 'ArrowLeft':
+                case 'Backspace':
+                    e.preventDefault();
+                    prevSlide();
+                    break;
+                case 'f':
+                case 'F':
+                    toggleFullscreen();
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
             }
         });
 
-        function startPresentation() { openFullscreen(1); }
-        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        // 触摸滑动支持
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
+            }
+        });
+
+        // 初始化
+        showSlide(0);
     </script>
 </body>
 </html>

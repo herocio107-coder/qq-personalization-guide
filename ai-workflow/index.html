@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设计师AI提效工作流</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .subtitle { font-size: 16px; opacity: 0.7; margin-bottom: 5px; }
+        .header .meta { font-size: 14px; opacity: 0.5; }
+        .controls { display: flex; justify-content: center; gap: 15px; padding: 20px; flex-wrap: wrap; }
+        .btn {
+            padding: 12px 28px; border: none; border-radius: 25px;
+            font-size: 15px; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6); }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+        .slide-counter { text-align: center; padding: 10px; font-size: 18px; font-weight: 600; opacity: 0.9; }
+        .slides-container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        .slide-wrapper {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        .slide-wrapper:hover { transform: scale(1.01); }
+        .slide-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; padding: 10px 20px; font-size: 14px; font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .slide-number .badge { background: rgba(255,255,255,0.25); padding: 3px 10px; border-radius: 12px; font-size: 13px; cursor: pointer; }
+        .slide-wrapper img { width: 100%; height: auto; display: block; }
+        .footer { text-align: center; padding: 40px 20px; opacity: 0.5; font-size: 14px; }
+        .fullscreen-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 1000; display: none;
+            align-items: center; justify-content: center; cursor: pointer;
+        }
+        .fullscreen-overlay.active { display: flex; }
+        .fullscreen-overlay img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
+        .fullscreen-nav {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            display: none; gap: 20px; z-index: 1001;
+        }
+        .fullscreen-nav.active { display: flex; }
+        .fullscreen-nav button {
+            background: rgba(255,255,255,0.2); color: white; border: none;
+            padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        @media (max-width: 768px) {
+            .header h1 { font-size: 24px; }
+            .btn { padding: 10px 20px; font-size: 14px; }
+            .slides-container { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>设计师AI提效工作流</h1>
+        <p class="subtitle">设计师 AI 提效工作流分享</p>
+        <p class="meta">在线演示 · 共 5 页</p>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-primary" onclick="startPresentation()">▶ 开始演示（全屏）</button>
+        <button class="btn btn-secondary" onclick="scrollToTop()">⬆ 回到顶部</button>
+    </div>
+
+    <div class="slide-counter">📊 共 5 页幻灯片</div>
+
+    <div class="slides-container" id="slidesContainer">
+
+        <div class="slide-wrapper" id="slide-1">
+            <div class="slide-number">
+                📄 第 1 页 / 共 5 页
+                <span class="badge" onclick="openFullscreen(1)">🔍 点击全屏查看</span>
+            </div>
+            <img src="slides/slide-01.jpg" alt="Slide 1" loading="lazy">
+        </div>
+
+        <div class="slide-wrapper" id="slide-2">
+            <div class="slide-number">
+                📄 第 2 页 / 共 5 页
+                <span class="badge" onclick="openFullscreen(2)">🔍 点击全屏查看</span>
+            </div>
+            <img src="slides/slide-02.jpg" alt="Slide 2" loading="lazy">
+        </div>
+
+        <div class="slide-wrapper" id="slide-3">
+            <div class="slide-number">
+                📄 第 3 页 / 共 5 页
+                <span class="badge" onclick="openFullscreen(3)">🔍 点击全屏查看</span>
+            </div>
+            <img src="slides/slide-03.jpg" alt="Slide 3" loading="lazy">
+        </div>
+
+        <div class="slide-wrapper" id="slide-4">
+            <div class="slide-number">
+                📄 第 4 页 / 共 5 页
+                <span class="badge" onclick="openFullscreen(4)">🔍 点击全屏查看</span>
+            </div>
+            <img src="slides/slide-04.jpg" alt="Slide 4" loading="lazy">
+        </div>
+
+        <div class="slide-wrapper" id="slide-5">
+            <div class="slide-number">
+                📄 第 5 页 / 共 5 页
+                <span class="badge" onclick="openFullscreen(5)">🔍 点击全屏查看</span>
+            </div>
+            <img src="slides/slide-05.jpg" alt="Slide 5" loading="lazy">
+        </div>
+
+    </div>
+
+    <div class="footer"><p>Powered by GitHub Pages · 响应式设计 · 支持全屏浏览</p></div>
+
+    <div class="fullscreen-overlay" id="fullscreenOverlay" onclick="closeFullscreen()">
+        <img id="fullscreenImage" src="" alt="Fullscreen view">
+    </div>
+
+    <nav class="fullscreen-nav" id="fullscreenNav">
+        <button onclick="prevSlide()">◀ 上一页</button>
+        <button onclick="closeFullscreen()">✕ 关闭</button>
+        <button onclick="nextSlide()">下一页 ▶</button>
+    </nav>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+        function openFullscreen(num) {
+            currentSlide = num;
+            var slideNum = String(num).padStart(2, '0');
+            document.getElementById('fullscreenImage').src = 'slides/slide-' + slideNum + '.jpg';
+            document.getElementById('fullscreenOverlay').classList.add('active');
+            document.getElementById('fullscreenNav').classList.add('active');
+        }
+
+        function closeFullscreen() {
+            document.getElementById('fullscreenOverlay').classList.remove('active');
+            document.getElementById('fullscreenNav').classList.remove('active');
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) { currentSlide++; openFullscreen(currentSlide); }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) { currentSlide--; openFullscreen(currentSlide); }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            var overlay = document.getElementById('fullscreenOverlay');
+            if (overlay.classList.contains('active')) {
+                if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'Escape') closeFullscreen();
+            }
+        });
+
+        function startPresentation() { openFullscreen(1); }
+        function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    </script>
+</body>
+</html>

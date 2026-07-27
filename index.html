@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QQ个性化审核及评级规范</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px 50px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #12B7F5;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-left: 12px;
+            border-left: 4px solid #12B7F5;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+            font-size: 14px;
+        }
+
+        table.doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+        }
+
+        table.doc-table th,
+        table.doc-table td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        table.doc-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+
+        table.doc-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        table.doc-table tr:hover {
+            background-color: #f0f7ff;
+        }
+
+        /* 图片网格布局 - 支持并排显示 */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            justify-items: center;
+        }
+
+        .image-grid img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .image-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        /* 单独图片保持居中 */
+        img:not(.image-grid img) {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        strong {
+            color: #222;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 { font-size: 24px; }
+            h2 { font-size: 20px; }
+            table.doc-table { font-size: 12px; }
+            table.doc-table th,
+            table.doc-table td { padding: 8px; }
+            .image-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 10px;
+            }
+            .image-grid img {
+                max-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p style="text-align: center">QQ个性化审核及评级规范</p>
+<p style="text-align: center">2025/09/26 </p>
+<p>背景：由于现行的审核机制为多方设计师共建审核，对于评级标准需要有一个较统一的规范，故梳理规则和评级建议。</p>
+<p>目前内容评级分为：</p>
+<p>【A级】＞【B级】＞【C级】</p>
+<p>不同评级对应分发情况：</p>
+<table class="doc-table"><tr><th><p style="text-align: center">级别</p></th><th><p style="text-align: center">分发资源</p></th></tr><tr><td><p style="text-align: center">A级</p></td><td><p>首页子商城资源位、顶部banner、推荐额外加权</p></td></tr><tr><td><p style="text-align: center">B级</p></td><td><p>新内容正常拥有冷启流量</p></td></tr><tr><td><p style="text-align: center">C级</p></td><td><p>不予通过</p></td></tr></table>
+<h3>主题审核评级建议【背景、名片同样可作参考】</h3>
+<p> <strong>A级（优秀）</strong> ：设计精湛，叙事完整。可读性、构图、动效、质感和统一性上均表现出色。</p>
+<p><strong> B级（合格） </strong>：设计完整但平庸，所有功能元素清晰可辨，但艺术表现力不足。</p>
+<p> <strong>C级 （不合格）</strong>：设计粗糙，影响功能阅读，侵权或完成度低，不予通过。</p>
+<p><span style="font-size: 11.5pt"><span style="color: #000000"><strong>核心评估维度说明： </strong></span></span> </p>
+<p><strong>可读性</strong><strong>佳</strong><strong>（必备）</strong>：图标清晰可辨，主题背景内容合理，无遮挡及干扰UI可读性。</p>
+<p><strong>构图合理</strong> ：视觉焦点突出，布局平衡，符合美学规律。</p>
+<p><strong>画面精美</strong> ：色彩协调，质感细腻，细节丰富。</p>
+<p><strong>动效流畅</strong> ：动画自然顺滑，能提升主题氛围。</p>
+<p><strong>风格统一 </strong>：主题内各图标及各场景间风格高度一致。</p>
+<p><strong>立意有趣</strong> ：主题概念新颖，能引发用户兴趣和情感共鸣。</p>
+<table class="doc-table"><tr><th><p style="text-align: center">评级</p><p style="text-align: center">规则</p></th><th><p style="text-align: center">评级</p><p style="text-align: center">规则</p></th><th><p style="text-align: center">可读性佳</p></th><th><p style="text-align: center">构图合理</p></th><th><p style="text-align: center">画面精美</p></th><th><p style="text-align: center">动效流畅</p></th><th><p style="text-align: center">风格统一</p></th><th><p style="text-align: center">立意有趣</p></th></tr><tr><td><p style="text-align: center">A级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">具备6个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #000000">必备</span></span></p><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td></tr><tr><td><p style="text-align: center">B级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">任意2个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #000000">必备</span></span></p><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td></tr><tr><td><p style="text-align: center">C级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">可读性</span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p><p style="text-align: center"><span style="font-size: 11.0pt">或</span></p><p style="text-align: center"><span style="font-size: 11.0pt">任意3个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td></tr></table>
+<p><span style="color: #000000">【</span><span style="color: #000000">2</span><span style="color: #000000">0</span><span style="color: #000000">2</span><span style="color: #000000">5</span><span style="color: #000000">/</span><span style="color: #000000">1</span><span style="color: #000000">0</span><span style="color: #000000">/</span><span style="color: #000000">0</span><span style="color: #000000">9</span><span style="color: #000000">更新</span><span style="color: #000000">】</span><span style="color: #000000">：</span><span style="color: #000000">静态主题</span><span style="color: #000000">可</span><span style="color: #000000">根据</span><span style="color: #000000">质量</span><span style="color: #000000">通过</span></p>
+<p>参考图表（双击看图）：</p>
+<table class="doc-table"><tr><th></th><th><p style="text-align: center">A级（优秀）</p></th><th><p style="text-align: center">B级（合格）</p></th><th><p style="text-align: center">C级（不合格）</p></th></tr><tr><td><p style="text-align: center">抽</p><p style="text-align: center">屉</p><p style="text-align: center">页</p></td><td><p style="text-align: center"><img src="images/image_55.jpg" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_14.jpg" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_68.jpg" alt="document image"></p></td></tr><tr><td><p style="text-align: center">列</p><p style="text-align: center">表</p><p style="text-align: center">页</p></td><td><p style="text-align: center"><img src="images/image_12.jpg" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_5.jpg" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_0.jpg" alt="document image"></p></td></tr><tr><td><p style="text-align: center">聊</p><p style="text-align: center">天</p><p style="text-align: center">页</p></td><td><p style="text-align: center"><img src="images/image_30.jpg" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_35.jpg" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_53.jpg" alt="document image"></p></td></tr></table>
+<p><strong>*饱和内容标记</strong></p>
+<table class="doc-table"><tr><th><p><img src="images/image_77.png" alt="document image"></p></th><th><p><img src="images/image_50.png" alt="document image"></p></th><th><p><img src="images/image_37.png" alt="document image"></p></th><th><p><img src="images/image_40.png" alt="document image"></p></th></tr><tr><td><p>低幼、暗示性内容</p></td><td><p>对镜自拍</p></td><td><p>非主流文案</p></td><td><p>常见形象加无意义实景</p></td></tr></table>
+<p><span style="color: #FF0000"><strong>*真人图片素材审核</strong></span><span style="color: #FF0000"><strong>细则</strong></span><span style="color: #FF0000"><strong>：</strong></span>真人图片素材审核建议</p>
+<h3>气泡审核评级建议</h3>
+<p><strong>A级（优秀）</strong> ：设计精巧，动效出众，在强装饰性下绝对保证文字可读性。</p>
+<p><strong>B级（合格）</strong>：功能正常，设计普通，在美观度或动效上有不足。</p>
+<p><strong>C级（不合格）</strong>：干扰阅读、设计粗糙或动效卡顿，不予通过。</p>
+<p><span style="font-size: 11.5pt"><span style="color: #000000"><strong>核心评估维度说明： </strong></span></span> </p>
+<p>可读性佳(必备)​​：文字区域清晰可辨，装饰绝不干扰信息阅读。</p>
+<p>设计精美​：造型美观，质感高级，色彩搭配和谐。</p>
+<p>动效自然​：动画流畅且富有创意，不卡顿，不突兀。</p>
+<p>创意独特​：设计有巧思，与众不同。</p>
+<table class="doc-table"><tr><th><p style="text-align: center">评级</p><p style="text-align: center">规则</p></th><th><p style="text-align: center">评级</p><p style="text-align: center">规则</p></th><th><p style="text-align: center">可读性佳</p></th><th><p style="text-align: center">设计精美</p></th><th><p style="text-align: center">动效自然</p></th><th><p style="text-align: center">创意独特</p></th></tr><tr><td><p style="text-align: center">A级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">具备</span><span style="font-size: 11.0pt">4</span><span style="font-size: 11.0pt">个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #000000">必备</span></span></p><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td></tr><tr><td><p style="text-align: center">B级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">任意1个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #000000">必备</span></span></p><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td></tr><tr><td><p style="text-align: center">C级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">可读性</span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p><p style="text-align: center"><span style="font-size: 11.0pt">或</span></p><p style="text-align: center"><span style="font-size: 11.0pt">任意2个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td></tr></table>
+<p>参考图表（双击看图）：</p>
+<table class="doc-table"><tr><th></th><th><p style="text-align: center">A级（优秀）</p></th><th><p style="text-align: center">B级（合格）</p></th><th><p style="text-align: center">C级（不合格）</p></th></tr><tr><td><p style="text-align: center">气泡</p></td><td><p style="text-align: center"><img src="images/image_20.png" alt="document image"><img src="images/image_51.png" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_52.png" alt="document image"><img src="images/image_41.png" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_44.png" alt="document image"><img src="images/image_21.png" alt="document image"></p></td></tr></table>
+<h3>挂件审核评级建议</h3>
+<p><span style="color: #000000"><strong>A级</strong></span><span style="color: #000000"><strong>（</strong></span><span style="color: #000000"><strong>优秀</strong></span><span style="color: #000000"><strong>）</strong></span><span style="color: #000000"> ：设计精致，</span><span style="color: #000000">动态效果炫酷流畅，装饰性与头像主体相得益彰</span><span style="color: #000000">。</span></p>
+<p><span style="color: #000000"><strong>B级</strong></span><span style="color: #000000"><strong>（</strong></span><span style="color: #000000"><strong>合格</strong></span><span style="color: #000000"><strong>）</strong></span><span style="color: #000000"> ：</span><span style="color: #000000">设计简单，功能正常，但缺乏设计感和吸引力</span><span style="color: #000000">。</span></p>
+<p><span style="color: #000000"><strong>C级</strong></span><span style="color: #000000"><strong>(</strong></span><span style="color: #000000"><strong>不合格</strong></span><span style="color: #000000"><strong>)</strong></span><span style="color: #000000"> ：</span><span style="color: #000000">过度遮挡、设计粗糙或动效不适，不予通过。</span></p>
+<p><span style="font-size: 11.5pt"><span style="color: #000000"><strong>核心评估维度说明： </strong></span></span> </p>
+<p><span style="font-size: 11.0pt"><strong>遮挡适度 (必备) </strong></span><span style="font-size: 11.0pt"> ：装饰面积适中（<20%）不喧宾夺主。</span></p>
+<p><span style="font-size: 11.0pt"><strong>造型精致</strong></span><span style="font-size: 11.0pt">：设计有美感，细节丰富，材质表现佳。</span></p>
+<p><span style="font-size: 11.0pt"><strong>动效自然 </strong></span><span style="font-size: 11.0pt">：动态效果流畅循环，增强表现力。</span></p>
+<p><span style="font-size: 11.0pt"><strong>创意有趣</strong></span><span style="font-size: 11.0pt"> ：概念新颖，能增加用户个性化表达</span></p>
+<table class="doc-table"><tr><th><p style="text-align: center">评级</p><p style="text-align: center">规则</p></th><th><p style="text-align: center">评级</p><p style="text-align: center">规则</p></th><th><p style="text-align: center">遮挡适度</p></th><th><p style="text-align: center">造型精致</p></th><th><p style="text-align: center">动效自然</p></th><th><p style="text-align: center">创意有趣</p></th></tr><tr><td><p style="text-align: center">A级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">具备</span><span style="font-size: 11.0pt">4</span><span style="font-size: 11.0pt">个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #000000">必备</span></span></p><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td></tr><tr><td><p style="text-align: center">B级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">任意</span><span style="font-size: 11.0pt">1</span><span style="font-size: 11.0pt">个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 11.0pt"><span style="color: #000000">必备</span></span></p><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td></tr><tr><td><p style="text-align: center">C级</p></td><td><p style="text-align: center"><span style="font-size: 11.0pt">可读性</span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p><p style="text-align: center"><span style="font-size: 11.0pt">或</span></p><p style="text-align: center"><span style="font-size: 11.0pt">任意</span><span style="font-size: 11.0pt">2</span><span style="font-size: 11.0pt">个 </span><span style="font-size: 11.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">✅</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td><td><p style="text-align: center"><span style="font-size: 14.0pt"><span style="color: #F3F3F3">❌</span></span></p></td></tr></table>
+<p>参考图表（双击看图）：</p>
+<table class="doc-table"><tr><th></th><th><p style="text-align: center">A级（优秀）</p></th><th><p style="text-align: center">B级（合格）</p></th><th><p style="text-align: center">C级（不合格）</p></th></tr><tr><td><p style="text-align: center">挂件</p></td><td><p style="text-align: center"><img src="images/image_28.png" alt="document image"><img src="images/image_26.png" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_45.png" alt="document image"><img src="images/image_25.png" alt="document image"></p></td><td><p style="text-align: center"><img src="images/image_19.png" alt="document image"><img src="images/image_15.png" alt="document image"></p></td></tr></table>
+<p>QQ商城个性化往期优秀案例公示：</p>
+<p>QQ商城个性化优秀案例公示</p>
+<h3>安全审核底线标准</h3>
+<h4>安审新更新标准1：政治</h4>
+<p><strong>总结特性：</strong>严禁使用具有明确国家权力象征或特定职能标识的具象化设计元素（如警帽、军徽、部队臂章、警用标识等），此类元素具有高度的严肃性和专用性，禁止进行任何形式的萌化、娱乐化、商业化解构或非授权使用，以确保其代表的国家尊严与权威不被消解。</p>
+<p>附参考例子：</p>
+<p><strong>挂件类（</strong>党政元素：涉军帽/警帽/部队/五星等元素内容）：</p>
+<div class="image-grid">
+<img alt="document image" src="images/image_13.png"/>
+<img alt="document image" src="images/image_9.png"/>
+<img alt="document image" src="images/image_47.png"/>
+<img alt="document image" src="images/image_8.png"/>
+<img alt="document image" src="images/image_42.png"/>
+</div>
+<h4>安审新更新标准2：仿冒官方标识</h4>
+<p><strong>总结特性：</strong>禁止设计任何与官方标识（如认证徽章、平台Logo、官方水印、直播中、AI等）高度相似或可能误导用户产生“官方认可”、“权威认证”、误解的视觉元素。此类设计通过虚假的权威性诱导用户。</p>
+<p>附参考例子：</p>
+<p><strong>挂件类：</strong></p>
+<div class="image-grid">
+<img alt="document image" src="images/image_7.png"/>
+<img alt="document image" src="images/image_43.png"/>
+<img alt="document image" src="images/image_61.png"/>
+<img alt="document image" src="images/image_6.png"/>
+<img alt="document image" src="images/image_23.png"/>
+<img alt="document image" src="images/image_46.png"/>
+</div>
+<h4>安审新更新标准3：挑起对立</h4>
+<p><strong>总结特性：</strong>禁止设计中出现任何煽动歧视、攻击或对立的视觉符号与文案，包括描绘暴力伤害（如流血、攻击姿态）、使用歧视性标识针对特定性别/群体/地域，以及刻意制造并激化群体矛盾（如男女对立、阶层对立、地域攻击）的内容。此类设计危害社区和谐。</p>
+<p>附参考例子：</p>
+<p><strong>挂件类：</strong></p>
+<div class="image-grid">
+<img alt="document image" src="images/image_17.png"/>
+<img alt="document image" src="images/image_36.png"/>
+</div>
+<h4>安审新更新标准4：性取向</h4>
+<p><strong>总结特性：</strong>禁止设计中出现宣扬或暗示非主流性取向、不良性关系（如同性恋、兄妹恋等禁忌恋爱）的内容，此类设计违背社会公序良俗，可能对用户尤其是未成年人产生不良导向。</p>
+<p>附参考例子：</p>
+<p><strong>挂件类：</strong></p>
+<div class="image-grid">
+<img alt="document image" src="images/image_27.png"/>
+<img alt="document image" src="images/image_22.png"/>
+<img alt="document image" src="images/image_56.png"/>
+<img alt="document image" src="images/image_57.png"/>
+<img alt="document image" src="images/image_24.png"/>
+<img alt="document image" src="images/image_59.png"/>
+<img alt="document image" src="images/image_60.png"/>
+</div>
+<h4>安审新更新标准5：色情低俗</h4>
+<p><strong>总结特性：</strong>禁止设计中出现任何形式的色情、低俗及性暗示内容，包括但不限于描绘性器官与性行为、裸露敏感部位、对幼态形象进行性化改造、使用性癖暗号或符号、通过姿势/道具/表情进行性挑逗，以及任何低俗恶搞或擦边球隐喻。此类设计破坏平台健康环境，必须严格禁止。</p>
+<p><span style="font-size: 12.0pt"><span style="color: #0F1115"><strong>附参考例子</strong></span></span><span style="font-size: 12.0pt"><span style="color: #0F1115">：</span></span></p>
+<p><strong>挂件类：</strong></p>
+<div class="image-grid">
+<img alt="document image" src="images/image_78.png"/>
+<img alt="document image" src="images/image_18.png"/>
+<img alt="document image" src="images/image_48.png"/>
+<img alt="document image" src="images/image_54.png"/>
+<img alt="document image" src="images/image_62.png"/>
+<img alt="document image" src="images/image_10.png"/>
+<img alt="document image" src="images/image_29.png"/>
+<img alt="document image" src="images/image_64.png"/>
+<img alt="document image" src="images/image_65.png"/>
+<img alt="document image" src="images/image_49.png"/>
+<img alt="document image" src="images/image_67.png"/>
+</div>
+<p>安审新更新标准6：未成年人保护</p>
+<p><strong>总结特性：</strong>禁止任何危害未成年人身心健康的内容，严禁将儿童或青少年形象与成人化、性暗示元素结合（如儿童软色情、性化改造），阴暗面（黑暗系，克苏鲁元素）禁止美化或诱导自残、抑郁、校园暴力、谩骂等行为，抵制使用高危亚文化标签（如地雷系）或通过病态意象、精神操控话术传播扭曲价值观。一切设计必须以保护未成年人成长为底线，阻断不良导向。</p>
+<p>附参考例子：</p>
+<p><strong>挂件类：</strong></p>
+<div class="image-grid">
+<img alt="document image" src="images/image_69.png"/>
+<img alt="document image" src="images/image_70.png"/>
+<img alt="document image" src="images/image_11.png"/>
+<img alt="document image" src="images/image_72.png"/>
+<img alt="document image" src="images/image_32.png"/>
+<img alt="document image" src="images/image_31.png"/>
+<img alt="document image" src="images/image_38.png"/>
+<img alt="document image" src="images/image_63.png"/>
+<img alt="document image" src="images/image_71.png"/>
+<img alt="document image" src="images/image_74.png"/>
+<img alt="document image" src="images/image_34.png"/>
+<img alt="document image" src="images/image_39.png"/>
+<img alt="document image" src="images/image_76.png"/>
+<img alt="document image" src="images/image_79.png"/>
+<img alt="document image" src="images/image_58.png"/>
+<img alt="document image" src="images/image_81.png"/>
+<img alt="document image" src="images/image_66.png"/>
+<img alt="document image" src="images/image_73.png"/>
+<img alt="document image" src="images/image_16.png"/>
+<img alt="document image" src="images/image_82.png"/>
+<img alt="document image" src="images/image_4.png"/>
+<img alt="document image" src="images/image_3.png"/>
+<img alt="document image" src="images/image_80.png"/>
+<img alt="document image" src="images/image_33.png"/>
+<img alt="document image" src="images/image_2.png"/>
+</div>
+<p><strong>气泡类：</strong></p>
+<div class="image-grid">
+<img alt="document image" src="images/image_1.png"/>
+<img alt="document image" src="images/image_75.png"/>
+</div>
+<table class="doc-table"><tr><th></th><th><p style="text-align: center"><strong>类别</strong></p></th><th><p style="text-align: center"><strong>风险元素</strong></p></th></tr><tr><td><p>政治</p></td><td><p>领导人相关</p></td><td><p>直接或间接影射领导人的元素，举例皇冠、龙袍等</p></td></tr><tr><td><p>政治</p></td><td><p>党政相关</p></td><td><p>相关标志物，如：党徽、国徽、军帽、警帽</p></td></tr><tr><td><p>政治</p></td><td><p>领土分裂元素</p></td><td><p>相关标志物，如：不完整的中国地图、雪山狮子旗等</p></td></tr><tr><td><p>政治</p></td><td><p>敏感事件</p></td><td><p>历史敏感事件以及其相关数字</p></td></tr><tr><td><p>政治</p></td><td><p>其他国家军队相关元素</p></td><td><p>如：精日、纳粹等相关标识物</p></td></tr><tr><td><p>政治</p></td><td><p>暴恐相关</p></td><td><p>如：黑色旗帜、圣战手势等</p></td></tr><tr><td><p>未成年</p></td><td><p>未成年色情、软色情</p></td><td><p>文字描述：未成年人对成年人称呼+可联想文字内容</p><p>不利于未成年人身心健康成长内容</p></td></tr><tr><td><p>未成年</p></td><td><p>色情</p></td><td><p>相关物品、动作</p><p>色情配文</p></td></tr><tr><td><p><span style="font-size: 10.0pt"><span style="color: #000000">血腥暴力</span></span></p></td><td><p>血腥暴力</p></td><td><p><span style="font-size: 10.0pt"><span style="color: #000000">1、暴力血腥物品</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">- 带血屠刀/电锯</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">- 带血人体器官挂件（心脏、眼球）</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">- 大量血迹（喷溅、拖痕）</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">2、引导自残、自杀</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">- 吞药瓶（药片散落）</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">- 割腕（刀片+手腕特写）</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">3、不当文字</span></span><span style="font-size: 10.0pt"><span style="color: #000000">，</span></span><span style="font-size: 10.0pt"><span style="color: #000000">如</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">- “活着好累，不如消失”</span></span></p><p><span style="font-size: 10.0pt"><span style="color: #000000">- “试试割腕，会解脱”	</span></span></p></td></tr><tr><td><p>低俗</p></td><td><p>低俗内容</p></td><td><p>低俗相关内容以及文字：如手铐等物品、直白词汇</p><p>阴暗风内容需要着重审核</p></td></tr></table>
+    </div>
+</body>
+</html>

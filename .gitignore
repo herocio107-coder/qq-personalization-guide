@@ -1,0 +1,15 @@
+# 部署相关脚本和临时文件
+deploy_to_oa_pages.py
+prepare_deploy.py
+create_self_contained.py
+docx_to_html.py
+docx_to_html_v2.py
+deploy_files.json
+deploy-to-github.sh
+
+# 工作目录
+.workbuddy/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
